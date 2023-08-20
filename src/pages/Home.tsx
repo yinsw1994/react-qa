@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { Button, Space, Typography } from 'antd'
 import { MANAGE_INDEX_PATHNAME } from '../router'
@@ -6,8 +6,16 @@ import styles from './Home.module.scss'
 
 const { Title, Paragraph } = Typography
 
+import axios from 'axios'
+
 const Home: FC = () => {
   const nav = useNavigate()
+
+  useEffect(() => {
+    axios.post('/api/question').then(res => {
+      console.log('res.data => ', res.data)
+    })
+  }, [])
 
   // function clickHandler() {
   //   // nav('/login')
