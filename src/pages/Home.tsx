@@ -11,11 +11,11 @@ import axios from 'axios'
 const Home: FC = () => {
   const nav = useNavigate()
 
-  useEffect(() => {
-    axios.post('/api/question').then(res => {
-      console.log('res.data => ', res.data)
-    })
-  }, [])
+  // useEffect(() => {
+  //   axios.post('/api/question').then(res => {
+  //     console.log('res.data => ', res.data)
+  //   })
+  // }, [])
 
   // function clickHandler() {
   //   // nav('/login')
