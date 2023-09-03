@@ -1,15 +1,34 @@
 import React, { FC } from 'react'
-import { Typography, Space, Form, Input, Button } from 'antd'
+import { Typography, Space, Form, Input, Button, message } from 'antd'
 import { UserAddOutlined } from '@ant-design/icons'
 import styles from './Register.module.scss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { LOGIN_PATHNAME } from '../router'
+import { useRequest } from 'ahooks'
+import { registerService } from '../services/user'
 
 const { Title } = Typography
 
 const Register: FC = () => {
+  const nav = useNavigate()
+
+  const { run } = useRequest(
+    async values => {
+      const { username, nickname, password } = values
+      const data = await registerService(username, nickname, password)
+      return data
+    },
+    {
+      manual: true,
+      onSuccess() {
+        message.success('注册成功')
+        nav(LOGIN_PATHNAME)
+      },
+    }
+  )
+
   const onFinish = (values: any) => {
-    console.log('🚀 ~ file: Register.tsx:12 ~ onFinish ~ values:', values)
+    run(values)
   }
 
   return (
